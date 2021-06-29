@@ -1,10 +1,12 @@
 package com.lazday.fruitsjava;
 
-public class FruitsModel {
+import java.io.Serializable;
+
+public class FruitModel implements Serializable {
     private String name;
     private Integer image;
 
-    public FruitsModel(String name, Integer image) {
+    public FruitModel(String name, Integer image) {
         this.name = name;
         this.image = image;
     }

@@ -11,28 +11,36 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class FruitsAdapter extends RecyclerView.Adapter<FruitsAdapter.ViewHolder> {
+public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> {
 
-    private List<FruitsModel> fruits;
+    private List<FruitModel> fruits;
+    private OnAdapterListener listener;
 
-    public FruitsAdapter(List<FruitsModel> fruits) {
-        this.fruits = fruits ;
+    public FruitAdapter(List<FruitModel> fruits, OnAdapterListener listener) {
+        this.fruits = fruits;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public FruitsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public FruitAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         return new ViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_fruits,
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_fruit,
                         parent, false)
         );
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        final FruitsModel fruit = fruits.get(position);
+        final FruitModel fruit = fruits.get(position);
         viewHolder.image.setImageResource( fruit.getImage() );
         viewHolder.text.setText( fruit.getName() );
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick( fruit );
+            }
+        });
     }
 
     @Override
@@ -50,8 +58,12 @@ public class FruitsAdapter extends RecyclerView.Adapter<FruitsAdapter.ViewHolder
         }
     }
 
-    public void add(FruitsModel data) {
+    public void add(FruitModel data) {
         fruits.add(data);
         notifyDataSetChanged();
+    }
+
+    interface OnAdapterListener {
+        void onClick(FruitModel fruitModel);
     }
 }
