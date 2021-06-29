@@ -35,8 +35,8 @@ public class FruitActivity extends AppCompatActivity implements FruitAdapter.OnA
         listFruit.add( new FruitModel("watermelon", R.drawable.watermelon) );
 
         RecyclerView list = findViewById(R.id.list);
-//        FruitsAdapter fruitsAdapter = new FruitsAdapter(listFruit);
-        FruitAdapter fruitsAdapter = new FruitAdapter(new ArrayList<>(), this::onClick);
+        FruitAdapter fruitsAdapter = new FruitAdapter(listFruit, this::onClick);
+//        FruitAdapter fruitsAdapter = new FruitAdapter(new ArrayList<>(), this::onClick);
         list.setAdapter( fruitsAdapter );
 
         FloatingActionButton fab = findViewById(R.id.fab);
